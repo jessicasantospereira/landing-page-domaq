@@ -23,12 +23,12 @@ const Footer = () => {
       <span className="block text-sm text-center text-gray-500">
         © 2024 DOMAQ Refrigeração e Lavadoras. Todos os direitos reservados.
         Contate-nos:{" "}
-        <a href="#" className="text-purple-600 hover:underline">
+        <a href="#" className="text-teal-800 hover:underline hover:font-bold">
           domaqrefrigeracaoeeletrica@gmail.com
         </a>{" "}
         |{" "}
-        <a href="#" className="text-purple-600 hover:underline">
-          015 - 999999999
+        <a href="#" className="text-teal-800 hover:underline hover:font-bold">
+          (15) 98122-3330
         </a>
         .
       </span>
