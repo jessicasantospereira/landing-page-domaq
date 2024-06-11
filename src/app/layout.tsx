@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
-const roboto = Roboto({ weight: "400", style: "normal", subsets: ["latin"]});
+const roboto = Roboto({ weight: "400", style: "normal", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "DOMAQ",
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={roboto.className}>
         <Header />
-        {children}</body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
