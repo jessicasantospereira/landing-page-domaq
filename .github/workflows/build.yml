@@ -19,11 +19,13 @@ jobs:
           npm install
           npm run build
       - name: List output files
-        run: find dist/ -print
+        run: find .next/ -print
+      - name: Copy files
+        run: cp -r .next/ out/
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.ftp_host }}
           username: ${{ secrets.ftp_user }}
           password: ${{ secrets.ftp_password }}
-          local-dir: dist/community-events-front/browser/
+          local-dir: .next
