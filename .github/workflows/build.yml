@@ -32,8 +32,8 @@ jobs:
           ftp-server: ${{ secrets.HOST }}
           ftp-username: ${{ secrets.USERNAME }}
           ftp-password: ${{ secrets.PASSWORD }}
-          source: deployment.zip
-          target: /projetos/domaq/
+          local-dir: "./"
+          server-dir: "/projetos/domaq/"
       # - name: Copy ZIP files to VPS
       #   uses: appleboy/scp-action@master
       #   with:
