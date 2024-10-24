@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function useApi() {
+export function useApi() {
   const api = axios.create({
     baseURL: "http://localhost:8080/api",
   });
