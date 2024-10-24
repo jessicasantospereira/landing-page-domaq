@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const roboto = Roboto({ weight: "400", style: "normal", subsets: ["latin"] });
 
@@ -10,8 +11,6 @@ export const metadata: Metadata = {
   description: "Concerto e manutenção de refrigeração e lavadoras em geral.",
 };
 
-const client = new QueryClient();
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
