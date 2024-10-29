@@ -1,15 +1,20 @@
 "use client";
 import { useLogin } from "@/concepts/Login/hooks/useLogin";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLoginContext } from "../../contexts/LoginContext";
+import { useRouter } from "next/navigation";
 
 const FormLogin: React.FC = () => {
   const mutation = useLogin();
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const { token } = useLoginContext();
-  console.log(token);
-
+  const router = useRouter();
+  useEffect(() => {
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [token]);
   const handleSubmit = useCallback(async () => {
     (await mutation).mutate({ login: usuario, senha });
   }, [mutation, usuario, senha]);
