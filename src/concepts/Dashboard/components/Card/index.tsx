@@ -1,19 +1,29 @@
-"use client"
-import { Button, Card, CardHeader } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import React from 'react'
+"use client";
+import { Button, Card, CardContent, CardHeader } from "@mui/material";
+import Link from "next/link";
+import React from "react";
 
 type CardDashboardProps = {
-    link: string;
+  link: string;
+  title: string;
+  content: string;
 };
-const CardDashboard:React.FC<CardDashboardProps> = ({link}) => {
-    const router = useRouter();
+const CardDashboard: React.FC<CardDashboardProps> = ({
+  link,
+  title,
+  content,
+}) => {
   return (
     <Card>
-        <CardHeader title='Dashboard' />
-        <Button variant='contained' color='primary' onClick={() => router.push(link)}></Button>
+      <div className="p-4">
+        <CardHeader title={title} />
+        <CardContent>{content}</CardContent>
+        <Button className="m-6" variant="contained" color="primary">
+          <Link href={{ pathname: `/dashboard${link}` }}>Entrar</Link>
+        </Button>
+      </div>
     </Card>
-  )
-}
+  );
+};
 
 export default CardDashboard;
