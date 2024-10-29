@@ -1,0 +1,29 @@
+/* Home.module.css */
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 250px;
+  left: 684px; /* Ajuste conforme necessário */
+  z-index: 1;
+}
+
+.image {
+  display: block;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: space-between; /* Alinha o card à esquerda */
+  align-items: center; /* Alinha verticalmente */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura */
+}
+
+.familyImage {
+  margin: auto; /* Empurra a imagem para a direita */
+}
