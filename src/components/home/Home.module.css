@@ -9,7 +9,7 @@
 .imageContainer {
   position: absolute;
   top: 250px;
-  left: 684px; /* Ajuste conforme necessário */
+  left: 680px; /* Ajuste conforme necessário */
   z-index: 1;
 }
 
@@ -26,4 +26,20 @@
 
 .familyImage {
   margin: auto; /* Empurra a imagem para a direita */
+}
+
+@media screen and (max-width: 1272px) {
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: -250px;
+  }
+  .imageContainer {
+    position: relative;
+    left: 90px;
+    top: 450px;
+    margin: auto;
+  }
 }

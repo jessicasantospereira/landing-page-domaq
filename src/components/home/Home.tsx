@@ -2,6 +2,9 @@ import React from "react";
 import { BannerHome } from "./bannerHome";
 import dados from "./infos.json";
 import { Secao } from "../secao";
+import eletrica from "@/assets/eletrica.svg";
+import geladeira from "@/assets/geladeira.svg";
+import maquina from "@/assets/concerto_maquina.svg";
 
 export const Home: React.FC = () => {
   return (
@@ -13,7 +16,8 @@ export const Home: React.FC = () => {
           description={dado.description}
           label={dado.label}
           title={dado.title}
-          imagem={dado.imagem}
+          imagem={index === 0 ? geladeira : index === 1 ? eletrica : maquina}
+          reverse={index % 2 !== 0}
         />
       ))}
       ;
