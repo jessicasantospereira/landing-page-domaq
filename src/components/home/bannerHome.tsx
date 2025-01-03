@@ -9,7 +9,13 @@ export const BannerHome: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <Image src={maquina} alt="Home" width={270} height={270} />
+        <Image
+          className="maquinaImg"
+          src={maquina}
+          alt="Home"
+          width={270}
+          height={270}
+        />
       </div>
       <div className={styles.cardContainer}>
         <Card

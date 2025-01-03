@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   left: 0;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .imageContainer {
@@ -41,5 +44,52 @@
     left: 90px;
     top: 450px;
     margin: auto;
+  }
+}
+@media screen and (max-width: 1271px) and (min-width: 768px) {
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    justify-content: space-between;
+  }
+
+  .imageContainer {
+    display: none;
+  }
+
+  .cardContainer {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .familyImage {
+    margin-left: auto;
+  }
+  .maquinaImg {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .imageContainer {
+    display: none;
+  }
+  .familyImage {
+    display: none;
+  }
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    top: auto;
+    left: auto;
+    justify-content: center;
+    width: 100%;
+  }
+  .maquinaImg {
+    display: none !important;
   }
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="text-center">
+    <div className="text-center mt-5 pt-5">
       <Link
         href="#"
         className="flex items-center justify-center mb-5 text-2xl font-semibold text-teal-950"
@@ -18,7 +18,7 @@ const Footer = () => {
         Refrigeração e Lavadoras
       </Link>
       <span className="block text-sm text-center text-gray-500">
-        © 2024 DOMAQ Refrigeração e Lavadoras. Todos os direitos reservados.
+        © 2025 DOMAQ Refrigeração e Lavadoras. Todos os direitos reservados.
         Contate-nos:{" "}
         <a href="#" className="text-teal-800 hover:underline hover:font-bold">
           domaqrefrigeracaoeeletrica@gmail.com

@@ -8,8 +8,9 @@ import maquina from "@/assets/concerto_maquina.svg";
 
 export const Home: React.FC = () => {
   return (
-    <>
+    <div>
       <BannerHome />
+
       {dados.map((dado, index) => (
         <Secao
           key={index}
@@ -20,7 +21,6 @@ export const Home: React.FC = () => {
           reverse={index % 2 !== 0}
         />
       ))}
-      ;
-    </>
+    </div>
   );
 };
