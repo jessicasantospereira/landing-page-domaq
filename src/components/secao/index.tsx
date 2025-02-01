@@ -20,9 +20,9 @@ export const Secao: React.FC<SecaoProps> = ({
   return (
     <div className={`${styles.container} md:${styles.containerMd}`}>
       <div
-        className={`flex gap-24 justify-center ${
+        className={`${styles.flexContainer} gap-24 justify-center ${
           reverse ? styles.reverse : ""
-        }`}
+        } `}
       >
         <div
           className={`${styles.imageContainer} md:${styles.imageContainerMd}`}

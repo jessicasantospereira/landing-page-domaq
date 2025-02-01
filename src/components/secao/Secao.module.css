@@ -4,6 +4,9 @@
   justify-content: center;
   padding-top: 50px;
 }
+.flexContainer {
+  display: flex !important;
+}
 
 .containerMd {
   flex-direction: row;
@@ -63,19 +66,27 @@
 @media screen and (max-width: 1272px) {
   .container {
     position: relative;
-    top: -150px;
+    /* top: -150px; */
   }
 }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .container {
     flex-wrap: wrap;
-  }
-  .containerInterno {
-    margin: auto;
     display: flex;
+    flex-direction: column;
+  }
+  .flexContainer {
+    display: block !important;
+  }
+  .containerMd {
+    margin: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
+  }
+
+  .reverse {
+    flex-direction: row-reverse !important;
   }
 }

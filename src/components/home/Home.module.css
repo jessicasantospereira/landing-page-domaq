@@ -1,5 +1,5 @@
 /* Home.module.css */
-.container {
+/* .container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -7,12 +7,12 @@
   max-width: 100%;
   padding: 0;
   margin: 0;
-}
+} */
 
 .imageContainer {
   position: absolute;
-  top: 250px;
-  left: 680px; /* Ajuste conforme necessário */
+  top: 200px;
+  left: 45%;
   z-index: 1;
 }
 
@@ -21,10 +21,13 @@
 }
 
 .cardContainer {
+  position: relative;
   display: flex;
-  justify-content: space-between; /* Alinha o card à esquerda */
-  align-items: center; /* Alinha verticalmente */
-  width: 100%; /* Garante que o contêiner ocupe toda a largura */
+  margin-top: -100px;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%; 
+  overflow: hidden;
 }
 
 .familyImage {
@@ -37,16 +40,10 @@
     display: flex;
     flex-direction: column;
     left: 0;
-    top: -250px;
-  }
-  .imageContainer {
-    position: relative;
-    left: 90px;
-    top: 450px;
-    margin: auto;
+    /* top: -250px; */
   }
 }
-@media screen and (max-width: 1271px) and (min-width: 768px) {
+@media screen and (max-width: 1271px) and (min-width: 1000px) {
   .container {
     position: relative;
     display: flex;
@@ -63,6 +60,7 @@
     flex-direction: row;
     align-items: flex-start;
     text-align: left;
+    margin-top: -80px;
   }
 
   .familyImage {
@@ -72,13 +70,21 @@
     display: none !important;
   }
 }
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 999px) and (min-width: 768px) {
+  
+  .cardContainer h2{
+    padding-top: 50px;
+  }
+}
+@media screen and (max-width: 768px) and (min-width: 480px) {
+  .cardContainer h2{
+    padding-top: 100px;
+  }
   .imageContainer {
     display: none;
   }
   .familyImage {
-    display: none;
+    display: none !important;
   }
   .container {
     position: relative;
