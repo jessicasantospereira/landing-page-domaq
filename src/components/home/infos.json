@@ -1,0 +1,20 @@
+[
+    {
+        "label": "Como trabalhamos",
+        "title": "Simplicidade e eficiência com qualidade",
+        "description": "Oferecemos serviços especializados em máquina de lavar e secar, geladeira, instalação e manutenção de ar condicionado e instalação elétrica.",
+        "imagem": ""
+    },
+    {
+        "label": "Porque nos escolher?",
+        "title": "Garantia em todos os serviços",
+        "description": "Só trabalhamos com peças originais com muita transparência do serviço executado. Dessa forma garatimos serviço de alto nível e a satisfação de nossos clientes.",
+        "imagem": ""
+    },
+    {
+        "label": "Nossas soluções personalizadas",
+        "title": "Serviços personalizados para cada necessidade",
+        "description": "Atendemos desde pequenas residências até grandes empresas. Nossas soluções especializadas garantem que seus equipamentos estão em boas mãos.",
+        "imagem": ""
+    }
+]
