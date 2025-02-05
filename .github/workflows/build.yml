@@ -22,12 +22,12 @@ jobs:
         run: |
           npm install
           npm run build
-          
+
       - name: Create ZIP file
         run: zip -r deployment.zip .next package.json next.config.mjs
 
       - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.5.0
         with:
           server: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
