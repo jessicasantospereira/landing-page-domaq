@@ -11,8 +11,8 @@ const FormLogin:React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    login(usuario, senha);
-    router.push('/clientes');
+    const token = await login(usuario, senha);
+    if(token) router.push('/clientes');
   }
 
   return (
