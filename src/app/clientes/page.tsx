@@ -2,8 +2,8 @@ import { FormCliente } from "@/components/clientes/form";
 
 export default function ClientePage() {
     return (
-        <main>
+        <div className="bg-background p-8">
             <FormCliente />
-        </main>
+        </div>
     );
 }

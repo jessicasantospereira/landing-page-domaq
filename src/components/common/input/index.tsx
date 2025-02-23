@@ -35,7 +35,6 @@ export const Input: React.FC<InputProps> = ({
         },
       });
     };
-    console.log(columnClasses)
     return (
       <div className={columnClasses}>
         <label htmlFor={id} className="mb-2" >
