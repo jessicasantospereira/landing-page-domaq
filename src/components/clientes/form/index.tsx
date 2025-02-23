@@ -8,23 +8,14 @@ import { EnderecoForm } from "./EnderecoForm";
 import { toast } from "sonner";
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface Address {
-    zipCode: string;
-    street: string;
-    number: string;
-    complement: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    type: string;
-    status: string;
-  }
+import { useClienteService } from "@/services/clientes.service";
+import { Cliente, TipoCliente } from "@/app/models/clientes";
 
 export const FormCliente: React.FC = () => {
-    const [customerData, setCustomerData] = useState({
+  const { criarCliente } = useClienteService();
+    const [customerData, setCustomerData] = useState<Cliente>({
         nome: "",
-        tipo: "physical",
+        tipo: TipoCliente.PESSOA_FISICA,
         documento: "",
         telefone: "",
         email: "",
@@ -36,13 +27,13 @@ export const FormCliente: React.FC = () => {
             complemento: "",
             bairro: "",
             cidade: "",
-            estado: "",
+            uf: "",
             tipo: "",
-            status: "ativo",
+            status: true,
           },
         ],
-      });
-      const handleAddAddress = () => {
+    });
+    const handleAddAddress = () => {
         setCustomerData((prev) => ({
           ...prev,
           enderecos: [
@@ -54,32 +45,34 @@ export const FormCliente: React.FC = () => {
                 complemento: "",
                 bairro: "",
                 cidade: "",
-                estado: "",
+                uf: "",
                 tipo: "",
-                status: "ativo",
+                status: true,
             },
           ],
         }));
-      };
-      const handleRemoveAddress = (index: number) => {
-        setCustomerData((prev) => ({
-          ...prev,
-          enderecos: prev.enderecos.filter((_, i) => i !== index),
-        }));
-      };
-      const handleAddressChange = (index: number, field: string, value: string) => {
-        setCustomerData((prev) => ({
-          ...prev,
-          enderecos: prev.enderecos.map((endereco, i) =>
-            i === index ? { ...endereco, [field]: value } : endereco
-          ),
-        }));
-      };
-      const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        toast("Cliente cadastrado com sucesso!");
-        console.log(customerData);
-      };
+    };
+    const handleRemoveAddress = (index: number) => {
+      setCustomerData((prev) => ({
+        ...prev,
+        enderecos: prev.enderecos.filter((_, i) => i !== index),
+      }));
+    };
+    const handleAddressChange = (index: number, field: string, value: string) => {
+      setCustomerData((prev) => ({
+        ...prev,
+        enderecos: prev.enderecos.map((endereco, i) =>
+          i === index ? { ...endereco, [field]: value } : endereco
+        ),
+      }));
+    };
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      var response = await criarCliente(customerData);
+      console.log(response);
+      if(response.status === 201) toast.success("Cliente cadastrado com sucesso!");
+      if(response.status === 400) toast.error("Erro ao cadastrar cliente!");
+    };
       return (
         <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-6 space-y-8">
           <Card className="animate-in">
@@ -105,16 +98,16 @@ export const FormCliente: React.FC = () => {
                   <RadioGroup
                     value={customerData.tipo}
                     onValueChange={(value) =>
-                      setCustomerData((prev) => ({ ...prev, tipo: value }))
+                      setCustomerData((prev) => ({ ...prev, tipo: value as unknown as TipoCliente }))
                     }
                     className="flex space-x-4"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="physical" id="physical" />
+                      <RadioGroupItem value={TipoCliente.PESSOA_FISICA.toString()} id="physical" />
                       <Label htmlFor="physical">Pessoa Física</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="legal" id="legal" />
+                      <RadioGroupItem value={TipoCliente.PESSOA_JURIDICA.toString()} id="legal" />
                       <Label htmlFor="legal">Pessoa Jurídica</Label>
                     </div>
                   </RadioGroup>

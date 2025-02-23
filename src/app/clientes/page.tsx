@@ -1,9 +1,9 @@
-import { FormCliente } from "@/components/clientes/form";
+import ListagemClientes from "@/components/clientes/listagem";
 
 export default function ClientePage() {
     return (
         <div className="bg-background p-8">
-            <FormCliente />
+            <ListagemClientes />
         </div>
     );
 }
