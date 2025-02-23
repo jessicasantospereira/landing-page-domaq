@@ -1,5 +1,5 @@
 export interface Cliente {
-    idCliente?: string;
+    id?: string;
     documento?: string;
     nome?: string;
     telefone?: string;

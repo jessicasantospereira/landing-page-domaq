@@ -69,9 +69,8 @@ export const FormCliente: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       var response = await criarCliente(customerData);
-      console.log(response);
-      if(response.status === 201) toast.success("Cliente cadastrado com sucesso!");
-      if(response.status === 400) toast.error("Erro ao cadastrar cliente!");
+      if(response?.status === 201) toast.success("Cliente cadastrado com sucesso!");
+      if(response?.status === 400) toast.error("Erro ao cadastrar cliente!");
     };
       return (
         <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-6 space-y-8">

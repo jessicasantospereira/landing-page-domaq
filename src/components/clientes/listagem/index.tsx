@@ -1,4 +1,5 @@
 "use client";
+import { Cliente } from "@/app/models/clientes";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -8,37 +9,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useClienteService } from "@/services/clientes.service";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
-// Tipo para os dados do cliente
-interface Customer {
-  id: string;
-  name: string;
-  type: "physical" | "legal";
-  document: string;
-  email: string;
-  phone: string;
-}
-// Dados mockados para exemplo
-const mockCustomers: Customer[] = [
-  {
-    id: "1",
-    name: "João Silva",
-    type: "physical",
-    document: "123.456.789-00",
-    email: "joao@email.com",
-    phone: "(11) 98765-4321",
-  },
-  {
-    id: "2",
-    name: "Empresa ABC",
-    type: "legal",
-    document: "12.345.678/0001-90",
-    email: "contato@empresaabc.com",
-    phone: "(11) 3456-7890",
-  },
-];
+import { useEffect, useState } from "react";
+
 export default function ListagemClientes() {
+  const { buscarClientes } = useClienteService();
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+
+  useEffect(() => {
+    buscarClientes().then((response) => {
+      setClientes(response.data);
+    });
+  }, []);
+  console.log(clientes);
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -63,15 +48,15 @@ export default function ListagemClientes() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockCustomers.map((customer) => (
+            {clientes.map((customer) => (
               <TableRow key={customer.id}>
-                <TableCell>{customer.name}</TableCell>
+                <TableCell>{customer.nome}</TableCell>
                 <TableCell>
-                  {customer.type === "physical" ? "Pessoa Física" : "Pessoa Jurídica"}
+                  {customer.tipo === "PESSOA_FISICA" ? "Pessoa Física" : "Pessoa Jurídica"}
                 </TableCell>
-                <TableCell>{customer.document}</TableCell>
+                <TableCell>{customer.documento}</TableCell>
                 <TableCell>{customer.email}</TableCell>
-                <TableCell>{customer.phone}</TableCell>
+                <TableCell>{customer.telefone}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button variant="outline" size="icon">

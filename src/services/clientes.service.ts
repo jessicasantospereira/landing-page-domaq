@@ -26,6 +26,20 @@ export const useClienteService = () => {
         }
     };
     
+    const buscarClientes = async () => {
+        try {
+            const response: AxiosResponse<Cliente[]> = await httpClient.get<Cliente[]>(resourceURL, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        
+            return response;
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+        }
+    }
+
     // const updateCliente = async (cliente: any) => {
     //     const response = await fetch(`${resourceURL}/${cliente.id}`, {
     //     method: "PUT",
@@ -45,6 +59,7 @@ export const useClienteService = () => {
     // };
     
     return {
-        criarCliente
+        criarCliente,
+        buscarClientes
     };
 };
