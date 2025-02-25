@@ -1,4 +1,4 @@
-import { Cliente } from "@/app/models/clientes";
+import { Cliente, Page } from "@/app/models/clientes";
 import { httpClient } from "./http";
 import { AxiosResponse } from "axios";
 import Cookie from "js-cookie";
@@ -26,9 +26,10 @@ export const useClienteService = () => {
         }
     };
     
-    const buscarClientes = async () => {
+    const buscarClientes = async (filtro: string = "", page: number = 0, size: number = 2) => {
         try {
-            const response: AxiosResponse<Cliente[]> = await httpClient.get<Cliente[]>(resourceURL, {
+            const url: string = `${resourceURL}?filtro=${filtro}&page=${page}&size=${size}`;
+            const response: AxiosResponse<Page<Cliente>> = await httpClient.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -40,26 +41,43 @@ export const useClienteService = () => {
         }
     }
 
-    // const updateCliente = async (cliente: any) => {
-    //     const response = await fetch(`${resourceURL}/${cliente.id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(cliente),
-    //     });
-    //     return response.json();
-    // };
+    const updateCliente = async (cliente: Cliente) => {
+        const url = `${resourceURL}/${cliente.id}`;
+        const response: AxiosResponse = await httpClient.put<Cliente>(url, cliente,{
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+        });
+        return response;
+    };
     
-    // const deleteCliente = async (id: string) => {
-    //     const response = await fetch(`${resourceURL}/${id}`, {
-    //     method: "DELETE",
-    //     });
-    //     return response.json();
-    // };
+    const buscarClientePorId = async (id: string): Promise<Cliente> => {
+        const url: string = `${resourceURL}/${id}`;
+        const response: AxiosResponse<Cliente> = await httpClient.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    };
+    
+    const inativarCliente = async (id: string) => {
+        const url = `${resourceURL}/${id}`;
+        const response: AxiosResponse = await httpClient.delete(url, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+        });
+        return response;
+    };
     
     return {
         criarCliente,
-        buscarClientes
+        buscarClientes,
+        updateCliente,
+        buscarClientePorId,
+        inativarCliente
+
     };
 };

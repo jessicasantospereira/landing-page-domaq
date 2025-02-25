@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className={poppins.className}>
         <TooltipProvider>
           <Toaster />
           <SidebarProvider>

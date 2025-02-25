@@ -1,3 +1,32 @@
+export interface Page<T> {
+    content: T[];
+    pageable: Pageable;
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    size: number;
+    number: number;
+    sort: Sort;
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
+}
+
+export interface Pageable {
+    sort: Sort;
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+}
+
+export interface Sort {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+}
+
 export interface Cliente {
     id?: string;
     documento?: string;
@@ -16,10 +45,10 @@ export interface Endereco{
     numero: string;
     complemento: string;
     bairro: string;
-    uf: string;
+    estado: string;
     cidade: string;
-    tipo: string;
-    status?: boolean;
+    tipoEndereco: string;
+    ativo?: boolean;
     idCliente?: string;
     nomeEndereco?: string;
 }
