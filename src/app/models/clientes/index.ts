@@ -30,7 +30,7 @@ export interface Sort {
 export interface Cliente {
     id?: string;
     documento?: string;
-    nome?: string;
+    nome: string;
     telefone?: string;
     email?: string;
     enderecos: Endereco[];

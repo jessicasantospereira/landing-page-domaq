@@ -20,6 +20,7 @@ export const ListagemServicos:React.FC = () => {
   const [valorPadrao, setValorPadrao] = useState("");
   const [descricao, setDescricao] = useState("");
   const [servicos, setServicos] = useState<Servico[]>();
+
   const service = useServicosService();
 
   useEffect(() => {

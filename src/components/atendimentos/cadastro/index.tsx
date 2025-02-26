@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,86 +12,55 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { TipoAtendimento } from "@/app/models/atendimentos";
-import { useClienteService } from "@/services/clientes.service";
 import { useServicosService } from "@/services/servicos.service";
-import { Cliente, TipoCliente } from "@/app/models/clientes";
 import { Servico } from "@/app/models/servicos";
+import { useClienteService } from "@/services/clientes.service";
+import { Cliente } from "@/app/models/clientes";
 import { Textarea } from "@/components/ui/textarea";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
-
-const mockCustomers: Cliente[] = [
-    {
-        "id": "2",
-        "nome": "Maria Elizabete dos Santos",
-        "documento": "04150315833",
-        "ativo": false,
-        "email": "maria@teste.com",
-        "telefone": "992587645",
-        "tipo": TipoCliente.PESSOA_FISICA,
-        "enderecos": [
-            {
-                "idEndereco": "2",
-                "cep": "18055177",
-                "logradouro": "Alameda das Catleas",
-                "bairro": "Jardim Simus",
-                "cidade": "Sorocaba",
-                "estado": "SP",
-                "complemento": "Edificio Delamar, apto 21",
-                "numero": "800",
-                "ativo": true,
-                "tipoEndereco": "APARTAMENTO",
-                "nomeEndereco": "minha casa"
-            },
-            {
-                "idEndereco": "4",
-                "cep": "08615070",
-                "logradouro": "Rua Gato Cinzento",
-                "bairro": "Vila Urupes",
-                "cidade": "Suzano",
-                "estado": "SP",
-                "complemento": "Bloco 3 apto 208",
-                "numero": "759",
-                "ativo": true,
-                "tipoEndereco": "APARTAMENTO",
-                "nomeEndereco": "Casa da mamis"
-            }
-        ]
-    }
-];
 export default function CriarAtendimento() {
   const [dataVisita, setDataVisita] = useState("");
   const [horaVisita, setHoraVisita] = useState("");
   const [descricao, setDescricao] = useState("");
   const [tipo, setTipo] = useState<TipoAtendimento>("ORCAMENTO");
-  const [clientes, setClientes] = useState<Cliente[]>();
-  const [servicos, setServicos] = useState<Servico[]>();
-  const [servico, setServico] = useState<string>("");
+  const [selectedCustomer, setSelectedCustomer] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedService, setSelectedService] = useState("");
+  const [servicos, setServicos] = useState<Servico[]>([]);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
 
-  const [selected, setSelected] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
+const servicoService = useServicosService();
+const clienteService = useClienteService();
 
-  const clienteService = useClienteService();
-  const servicoService = useServicosService();
-
-  useEffect(() => {
-    clienteService.buscarClientes().then((response) => {
-      if (response) {
-        setClientes(response.data.content);
-      }
-    });
-    servicoService.buscarServicos().then((response) => {
-      if (response) {
-        setServicos(response.data);
-      }
-    });
-  }, []);
-  console.log("SERVICO => ", servico)
+useEffect(() => {
+    const fetchServicos = async () => {
+            try {
+                const response = await servicoService.buscarServicos();
+                setServicos(response?.data as Servico[]);
+            } catch (error) {
+                console.error("Erro ao buscar serviços:", error);
+            }
+        };
+    const fetchClientes = async () => {
+        try {
+            const response = await clienteService.buscarClientes();
+            setClientes(response?.data.content as Cliente[]);
+        } catch (error) {
+            console.error("Erro ao buscar clientes:", error);
+        }
+    };
+    fetchServicos();
+    fetchClientes();
+    
+}, []);
+  const selectedCustomerData = clientes.find(
+    (customer) => customer.nome === selectedCustomer
+  );
+  console.log(selectedCustomerData);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    toast.success("O atendimento foi cadastrado com sucesso!");
+    toast("O atendimento foi cadastrado com sucesso!");
     // Limpar campos após o cadastro
     setDataVisita("");
     setHoraVisita("");
@@ -144,61 +112,59 @@ export default function CriarAtendimento() {
           </Select>
         </div>
         <div className="space-y-2">
-            <Label htmlFor="cliente">Cliente</Label>
-            <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-between" >
-                    {selected ? clientes?.find((o) => o.nome === selected)?.nome : "Selecione uma opção"}
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                    <Command>
-                    <CommandInput placeholder="Digite para buscar..." onChangeCapture={(e) =>
-                        clienteService.buscarClientes(e.target.value).then((response) => {
-                            if (response) {
-                                setClientes(response.data.content);
-                            }
-                        })
-                    }
-                    />
-                        <CommandList className="w-full">
-                            {clientes && clientes.map((option) => (
-                            <CommandItem
-                                key={option.id}
-                                value={option.nome}
-                                onSelect={(value) => {
-                                    setSelected(value);
-                                    setOpen(false);
-                                }}
-                                className="w-full"
-                            >
-                                {option.nome}
-                            </CommandItem>
-                            ))}
-                        </CommandList>
-                    </Command>
-                </PopoverContent>
-            </Popover>
+          <Label htmlFor="cliente">Cliente</Label>
+          <Select value={selectedCustomer} onValueChange={(value) => {
+            setSelectedCustomer(value);
+            setSelectedAddress("");
+          }}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione um cliente" />
+            </SelectTrigger>
+            <SelectContent>
+              {clientes.length > 0 ? ( clientes.map((customer) => (
+                <SelectItem key={customer.id} value={customer.nome}>
+                  {customer.nome}
+                </SelectItem>
+              )) ) : (
+                <p>Carregando clientes...</p>
+              )}
+            </SelectContent>
+          </Select>
         </div>
+        {selectedCustomerData && selectedCustomerData.enderecos.length > 0 && (
+          <div className="space-y-2">
+            <Label htmlFor="endereco">Endereço</Label>
+            <Select value={selectedAddress} onValueChange={setSelectedAddress}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione um endereço" />
+              </SelectTrigger>
+              <SelectContent>
+                {selectedCustomerData.enderecos.map((address) => (
+                  <SelectItem key={address.idEndereco} value={address.cep}>
+                    {`${address.logradouro}, ${address.numero} - ${address.bairro}, ${address.cidade}`}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
         <div className="space-y-2">
           <Label htmlFor="servico">Serviço</Label>
-          <Select onValueChange={(value) => {
-                setServico(value)}
-            } 
-            value={servico} >
+          <Select value={selectedService} onValueChange={setSelectedService}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione um serviço" />
             </SelectTrigger>
             <SelectContent>
-              {servicos && servicos.map((service) => (
-                <SelectItem key={Math.random()} value={service.id ?? ""}>
+              {servicos.length > 0 ? (servicos.map((service) => (
+                <SelectItem key={service.id} value={service.nome}>
                   {service.nome}
                 </SelectItem>
-              ))}
+                ))) : (
+                    <p>Carregando serviços...</p>
+                  )}
             </SelectContent>
           </Select>
         </div>
-
         <div className="space-y-2">
           <Label htmlFor="descricao">Descrição</Label>
           <Textarea
