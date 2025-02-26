@@ -13,6 +13,7 @@ import { ptBR } from "date-fns/locale";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Atendimento } from "@/app/models/atendimentos";
 import { useAtendimentoService } from "@/services/atendimentos.service";
+import { useRouter } from "next/navigation";
 
 export const ListagemAtendimentos:React.FC = () => {
   const [data, setData] = useState<Date | undefined>(new Date());
@@ -20,7 +21,7 @@ export const ListagemAtendimentos:React.FC = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const service = useAtendimentoService();
   const [atendimentos, setAtendimentos] = useState<Atendimento[]>([]);
-
+  const router = useRouter();
 
 useEffect(() => {
     service.buscarAtendimentos().then((response) => setAtendimentos(response?.data || []));
@@ -45,7 +46,7 @@ const appointmentsForDay = (date: Date | undefined) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Atendimentos</h1>
-        <Button>
+        <Button onClick={() => router.push("/atendimentos/criar-atendimento")}>
           <Calendar className="mr-2 h-4 w-4" />
           Novo Atendimento
         </Button>

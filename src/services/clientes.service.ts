@@ -26,7 +26,7 @@ export const useClienteService = () => {
         }
     };
     
-    const buscarClientes = async (filtro: string = "", page: number = 0, size: number = 2) => {
+    const buscarClientes = async (filtro: string = "", page: number = 0, size: number = 3) => {
         try {
             const url: string = `${resourceURL}?filtro=${filtro}&page=${page}&size=${size}`;
             const response: AxiosResponse<Page<Cliente>> = await httpClient.get(url, {

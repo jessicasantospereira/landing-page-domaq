@@ -1,5 +1,5 @@
 export interface Servico {
-    id: string;
+    id?: string;
     nome: string;
     descricao: string;
     valorPadrao: number;
