@@ -91,7 +91,6 @@ export const FormCliente: React.FC = () => {
       if(response?.status === 400) toast.error("Erro ao cadastrar cliente!");
     }
   };
-  console.log(customerData);  
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-6 space-y-8">
       <Card className="animate-in">
