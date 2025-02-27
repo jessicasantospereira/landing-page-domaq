@@ -60,7 +60,7 @@ useEffect(() => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    toast("O atendimento foi cadastrado com sucesso!");
+    toast.success("O atendimento foi cadastrado com sucesso!");
     // Limpar campos após o cadastro
     setDataVisita("");
     setHoraVisita("");
