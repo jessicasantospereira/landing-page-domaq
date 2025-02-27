@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/home/header";
-import Footer from "@/components/home/footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import ClientWrapper from "./ClienteWrapper";
 
 const poppins = Poppins({ weight: "400", style: "normal", subsets: ["latin"] });
 
@@ -19,9 +21,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={poppins.className}>
-        <Header />
-        {children}
-        <Footer />
+        <TooltipProvider>
+          <Toaster />
+          <SidebarProvider>
+            <ClientWrapper>
+              {children}
+            </ClientWrapper>
+          </SidebarProvider>
+        </TooltipProvider>
       </body>
     </html>
   );
