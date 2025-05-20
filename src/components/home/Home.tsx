@@ -22,7 +22,7 @@ export const Home: React.FC = () => {
           reverse={index % 2 !== 0}
         />
       ))}
-      <FeedbackCarousel />
+      {/* <FeedbackCarousel /> */}
     </div>
   );
 };
