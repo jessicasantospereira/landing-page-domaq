@@ -29,13 +29,13 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.IP_VPS }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to VPS
         run: |
-          ssh ${{ secrets.USER }}@${{ secrets.IP_VPS }} << 'EOF'
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
             cd /projetos/domaq/
             git pull origin main
             EOF
