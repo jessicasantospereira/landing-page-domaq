@@ -26,21 +26,26 @@ jobs:
       - name: Create ZIP file
         run: zip -r deployment.zip .next package.json next.config.mjs
 
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: 22
-          local-dir: "./"
-          server-dir: "/projetos/domaq/"
-      # - name: Copy ZIP files to VPS
-      #   uses: appleboy/scp-action@master
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.IP_VPS }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh user@${{ secrets.IP_VPS }} << 'EOF'
+            cd /projetos/domaq/
+            git pull origin main
+            EOF
+
+      # - name: FTP-Deploy-Action
+      #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
       #   with:
-      #     host: ${{ secrets.HOST }}
+      #     server: ${{ secrets.HOST }}
       #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.SSH_KEY }}
+      #     password: ${{ secrets.PASSWORD }}
       #     port: 22
-      #     source: "deployment.zip"
-      #     target: "/projetos/domaq/"
+      #     local-dir: "./"
+      #     server-dir: "/projetos/domaq/"
