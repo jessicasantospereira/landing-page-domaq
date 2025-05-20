@@ -35,7 +35,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh user@${{ secrets.IP_VPS }} << 'EOF'
+          ssh ${{ secrets.USER }}@${{ secrets.IP_VPS }} << 'EOF'
             cd /projetos/domaq/
             git pull origin main
             EOF
