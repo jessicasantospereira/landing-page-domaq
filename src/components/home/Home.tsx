@@ -5,10 +5,11 @@ import { Secao } from "../secao";
 import eletrica from "@/assets/eletrica.svg";
 import geladeira from "@/assets/geladeira.svg";
 import maquina from "@/assets/concerto_maquina.svg";
+import FeedbackCarousel from "./FeedbackCarousel";
 
 export const Home: React.FC = () => {
   return (
-    <div>
+    <div className="w-full">
       <BannerHome />
 
       {dados.map((dado, index) => (
@@ -21,6 +22,7 @@ export const Home: React.FC = () => {
           reverse={index % 2 !== 0}
         />
       ))}
+      <FeedbackCarousel />
     </div>
   );
 };
