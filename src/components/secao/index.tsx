@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import styles from "./Secao.module.css";
 
 type SecaoProps = {
   label: string;
@@ -18,24 +17,18 @@ export const Secao: React.FC<SecaoProps> = ({
   reverse,
 }) => {
   return (
-    <div className={`${styles.container} md:${styles.containerMd}`}>
-      <div
-        className={`${styles.flexContainer} gap-24 justify-center ${
-          reverse ? styles.reverse : ""
-        } `}
-      >
-        <div
-          className={`${styles.imageContainer} md:${styles.imageContainerMd}`}
-        >
-          <Image src={imagem} alt="Home" width={270} height={270} />
+     <div className="w-full py-12 md:py-16 bg-white">
+      <div className={`container mx-auto px-4 md:px-8 flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-12 lg:gap-16`}>
+        <div className="w-full md:w-1/2 flex justify-center bg-teal-20 rounded-3xl">
+          <Image src={imagem} alt="Home" className="w-64 h-64 object-contain" />
         </div>
 
-        <div className={`${styles.textContainer} md:${styles.textContainerMd}`}>
-          <div className=" mb-7">
-            <label className={styles.label}>{label}</label>
+        <div className="w-full md:w-1/2 space-y-4">
+          <div className="mb-2">
+            <span className="inline-block bg-primary-100 text-gray-20 py-1 rounded-full text-sm font-medium">{label}</span>
           </div>
-          <h2 className={styles.title}>{title}</h2>
-          <p className={styles.description}> {description}</p>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">{title}</h2>
+          <p className="text-gray-600 text-xl md:text-lg"> {description}</p>
         </div>
       </div>
     </div>
